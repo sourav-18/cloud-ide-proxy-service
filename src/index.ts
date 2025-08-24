@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
+import serverEnv from "./config/serverEnv.config";
 const { createProxyMiddleware } = require('http-proxy-middleware');
 import express, { Request, Response, NextFunction } from "express";
 
@@ -27,8 +28,9 @@ app.use("/api/v1/repel", createProxyMiddleware({
     secure: false,
 }));
 
-app.listen(process.env.SERVER_PORT, () => {
-    console.log(`Proxy service is running on port ${process.env.SERVER_PORT}`);
+app.listen(serverEnv.SERVER_PORT, () => {
+    console.log(`Proxy service is running on port ${serverEnv.SERVER_PORT}`);
 });
+
 
 

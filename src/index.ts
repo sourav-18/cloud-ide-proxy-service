@@ -22,8 +22,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 });
 
-app.use("/api/v1/repel", createProxyMiddleware({
-    target: process.env.SERVICE_REPEL + '/auth',
+app.use("/api/v1/repl", createProxyMiddleware({
+    target: serverEnv.SERVICE_REPL + '/api/v1/repl',
     changeOrigin: true,
     secure: false,
 }));

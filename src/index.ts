@@ -5,6 +5,8 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 import express, { Request, Response, NextFunction } from "express";
 
 
+
+
 const app = express();
 
 
@@ -27,6 +29,21 @@ app.use("/api/v1/repl", createProxyMiddleware({
     changeOrigin: true,
     secure: false,
 }));
+
+
+//SOCKET
+app.use("/socket.io", createProxyMiddleware({
+    target: serverEnv.SERVICE_SOCKET,
+    changeOrigin: true,
+    ws: true,
+    secure: false,
+}));
+
+app.use((req: Request, res: Response) => {
+    res.send("Invalid routes From Main")
+    console.log("invalid Url: ", req.originalUrl)
+    return;
+})
 
 app.listen(serverEnv.SERVER_PORT, () => {
     console.log(`Proxy service is running on port ${serverEnv.SERVER_PORT}`);
